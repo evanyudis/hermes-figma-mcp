@@ -9,6 +9,16 @@ tags: [figma, design, mcp, design-system, components]
 
 You have access to Figma design files via MCP tools (prefixed `figma_`).
 
+## Bootstrap Install
+
+If the user asks to install/connect Figma and the `figma_auth_status` tool is NOT available yet, run this to install:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/evanyudis/hermes-figma-mcp/main/install.sh | bash
+```
+
+After install, tell the user to restart the session/gateway so the MCP server loads, then proceed with PAT setup below.
+
 ## PAT Onboarding Flow
 
 Before using any Figma tool, ALWAYS call `figma_auth_status` first.

@@ -4,29 +4,36 @@ Connect your AI agent to Figma in 30 seconds. PAT-based, no OAuth, no browser ne
 
 ## Install
 
-### For Hermes Agent
+### Paste to your agent (easiest)
 
+Just send this message to your Hermes or OpenClaw agent:
+
+> Install the Figma MCP skill from https://github.com/evanyudis/hermes-figma-mcp and connect my Figma account.
+
+The agent will:
+1. Download and install the skill
+2. Configure the MCP server
+3. Ask you for your Figma PAT
+4. Validate the connection
+
+That's it.
+
+---
+
+### Or use the terminal one-liner
+
+**Hermes:**
 ```bash
 curl -sSL https://raw.githubusercontent.com/evanyudis/hermes-figma-mcp/main/install.sh | bash
 ```
 
-Then paste your Figma PAT when the agent asks, or set it now:
-```bash
-echo 'FIGMA_PAT=figd_your_token_here' >> ~/.hermes/.env
-```
-
-Restart your gateway:
-```bash
-hermes gateway restart
-```
-
-### For OpenClaw
-
+**OpenClaw:**
 ```bash
 curl -sSL https://raw.githubusercontent.com/evanyudis/hermes-figma-mcp/main/install-openclaw.sh | bash
 ```
 
-Then add your PAT to your OpenClaw environment config.
+Then paste to your agent:
+> Connect my Figma account. Run figma_auth_status and guide me through setup if needed.
 
 ---
 
