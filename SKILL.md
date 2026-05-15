@@ -22,11 +22,11 @@ Tell the user:
 > 4. Set expiration (max 90 days)
 > 5. Copy the token and paste it here
 
-Once user provides the PAT, store it by running:
+Once user provides the PAT, store it:
 ```bash
-echo 'FIGMA_PAT=<token>' >> ~/.hermes/.env
+grep -q '^FIGMA_PAT=' ~/.hermes/.env 2>/dev/null && sed -i 's/^FIGMA_PAT=.*/FIGMA_PAT=<token>/' ~/.hermes/.env || echo 'FIGMA_PAT=<token>' >> ~/.hermes/.env
 ```
-Then tell user to restart the gateway or session for it to take effect.
+Then validate it works by calling `figma_auth_status` again. If valid, tell the user: "✅ Figma connected! I can now read your design files."
 
 ### If status is EXPIRED_OR_INVALID:
 Tell the user:
@@ -39,6 +39,7 @@ Update the token:
 ```bash
 sed -i 's/^FIGMA_PAT=.*/FIGMA_PAT=<new_token>/' ~/.hermes/.env
 ```
+Then call `figma_auth_status` again to confirm it works.
 
 ### If status is valid:
 Proceed with the user's request using the available tools.

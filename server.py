@@ -8,6 +8,7 @@ No OAuth, no browser, no desktop app required.
 import json
 import os
 import sys
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -21,7 +22,19 @@ server = Server("figma-mcp")
 
 
 def _get_pat() -> str | None:
-    return os.environ.get("FIGMA_PAT") or os.environ.get("FIGMA_PERSONAL_ACCESS_TOKEN")
+    pat = os.environ.get("FIGMA_PAT") or os.environ.get("FIGMA_PERSONAL_ACCESS_TOKEN")
+    if pat:
+        return pat
+    # Fallback: read directly from .env file (picks up changes without restart)
+    for env_path in [
+        Path.home() / ".hermes" / ".env",
+        Path.home() / ".openclaw" / ".env",
+    ]:
+        if env_path.exists():
+            for line in env_path.read_text().splitlines():
+                if line.startswith("FIGMA_PAT="):
+                    return line.split("=", 1)[1].strip().strip("'\"")
+    return None
 
 
 def _headers() -> dict[str, str]:
